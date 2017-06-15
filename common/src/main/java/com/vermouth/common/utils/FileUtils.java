@@ -99,6 +99,18 @@ public class FileUtils {
     }
 
     /**
+     * 获得一个文件读取器
+     *
+     * @param path classpath下的文件
+     * @return
+     * @throws IOException
+     */
+    public static BufferedReader getBufferedReaderClasspath(String path)
+            throws IOException {
+        return new BufferedReader(new InputStreamReader(FileUtils.class.getClassLoader().getResourceAsStream(path)));
+    }
+
+    /**
      * 从文件中读取每一行数据
      *
      * @param path       文件路径
@@ -125,6 +137,21 @@ public class FileUtils {
 
     public static <T extends Collection<String>> T loadFileLines(String path, T collection) throws IOException {
         return loadFileLines(path, CHARSET, collection);
+    }
+
+    public static <T extends Collection<String>> T loadFileLinesClasspath(String path, T collection) throws IOException {
+        BufferedReader reader = getBufferedReaderClasspath(path);
+        while (true) {
+            String line = reader.readLine();
+            if (line == null) {
+                break;
+            }
+            collection.add(line);
+        }
+        if (reader != null) {
+            reader.close();
+        }
+        return collection;
     }
 
     /**
