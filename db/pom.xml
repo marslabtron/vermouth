@@ -14,9 +14,22 @@
     <properties>
         <druid.version>1.0.31</druid.version>
         <mysql.version>6.0.6</mysql.version>
+        <vermouth.common.version>1.0.0-SNAPSHOT</vermouth.common.version>
+        <dbutils.version>1.6</dbutils.version>
     </properties>
 
     <dependencies>
+        <dependency>
+            <groupId>com.vermouth</groupId>
+            <artifactId>common</artifactId>
+            <version>${vermouth.common.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>commons-dbutils</groupId>
+            <artifactId>commons-dbutils</artifactId>
+            <version>${dbutils.version}</version>
+        </dependency>
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>druid</artifactId>
