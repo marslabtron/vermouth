@@ -1,6 +1,7 @@
 package com.vermouth.common.test;
 
 import com.vermouth.common.utils.AESUtils;
+import com.vermouth.common.utils.HexUtils;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,9 +17,9 @@ public class AESUtilsTest {
         try {
             for (int i = 0; i < 1; ++i) {
                 long st = System.currentTimeMillis();
-                String s = AESUtils.parseByte2HexStr(AESUtils.encrypt128("admin"+i, "pwd"));
+                String s = HexUtils.parseByte2HexStr(AESUtils.encrypt128("admin"+i, "pwd"));
                 LOGGER.debug(s);
-                LOGGER.debug(new String(AESUtils.decrypt128(AESUtils.parseHexStr2Byte(s), "pwd")));
+                LOGGER.debug(new String(AESUtils.decrypt128(HexUtils.parseHexStr2Byte(s), "pwd")));
                 LOGGER.debug("cost:{}", (System.currentTimeMillis() - st));
             }
         }catch (Throwable e) {
