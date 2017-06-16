@@ -36,8 +36,8 @@ public class LinuxShellUtilsTest {
             long st = System.currentTimeMillis();
             LinuxShellUtils shellUtils = new LinuxShellUtils("ubuntu-1", "root", "admin");
             // 超时设置为1秒
-            shellUtils.setTIME_OUT(1000);
-            shellUtils.init();
+            // shellUtils.setTIME_OUT(1000);
+            // shellUtils.init();
             for (int i = 0; i < 1; ++i) {
                 LinuxShellPojo pojo = shellUtils.execute("ps -ef | grep 22");
                 LOGGER.debug("cost:{}, {}",System.currentTimeMillis() - st , pojo != null ? pojo.toString() : null);
