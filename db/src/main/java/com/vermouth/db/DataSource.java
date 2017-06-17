@@ -17,6 +17,21 @@ public class DataSource {
     private DruidDataSource dataSource;
     private ThreadLocal<Connection> container;
 
+    /** 获取数据库连接 **/
+    public Connection getConnection() {
+        Connection conn = null;
+        try {
+            conn = container.get();
+            if (conn == null) {
+                dataSource.getConnection();
+                container.set(conn);
+            }
+        } catch (Throwable e) {
+            LOGGER.error("getConnection error:{}", e.getMessage(), e);
+        }
+        return conn;
+    }
+
     /** 关闭连接 **/
     public void closeConnection() {
         try {
@@ -66,18 +81,6 @@ public class DataSource {
         } catch (Throwable e) {
             LOGGER.error("startTransaction error:{}", e.getMessage(), e);
         }
-    }
-
-    /** 获取数据库连接 **/
-    public Connection getConnection() {
-        Connection conn = null;
-        try {
-            conn = dataSource.getConnection();
-            container.set(conn);
-        } catch (Throwable e) {
-            LOGGER.error("getConnection error:{}", e.getMessage(), e);
-        }
-        return conn;
     }
 
     private void init() {
