@@ -18,7 +18,7 @@ public class DataSource {
     private ThreadLocal<Connection> container;
 
     /** 关闭连接 **/
-    public void close() {
+    public void closeConnection() {
         try {
             Connection conn = container.get();
             if (conn != null) {

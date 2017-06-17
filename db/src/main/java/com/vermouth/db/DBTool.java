@@ -16,17 +16,15 @@ import java.util.Map;
 /**
  * Created by shenhui.ysh on 2017/6/16 0016.
  */
-public class DBTool<T> {
+public class DBTool {
     private static Logger LOGGER = LoggerFactory.getLogger(DBTool.class);
     private DataSource dataSource;
-    private Class clazz;
 
-    public DBTool(Class clazz, DataSource dataSource) {
-        this.clazz = clazz;
+    public DBTool(DataSource dataSource) {
         this.dataSource = dataSource;
     }
 
-    public Map<Object, T> queryBeanMap(String sql, Object[] params, int columnIndex) throws SQLException {
+    public <T> Map<Object, T> queryBeanMap(String sql, Object[] params, int columnIndex, Class<T> clazz) throws SQLException {
         log(sql, params);
         QueryRunner runner = new QueryRunner(dataSource.getDataSource());
         if (columnIndex <= 0) {
@@ -46,7 +44,7 @@ public class DBTool<T> {
      * @throws SQLException Map<Object,T>
      * @throws @since       1.0.0
      */
-    public Map<Object, T> queryBeanMap(String sql, Object[] params, String columnName) throws SQLException {
+    public <T> Map<Object, T> queryBeanMap(String sql, Object[] params, String columnName, Class<T> clazz) throws SQLException {
         log(sql, params);
         QueryRunner runner = new QueryRunner(dataSource.getDataSource());
         if (StringUtils.isBlank(columnName)) {
@@ -204,7 +202,7 @@ public class DBTool<T> {
      * @throws SQLException T
      * @throws @since       1.0.0
      */
-    public T query(String sql, Object[] params) throws SQLException {
+    public <T> T query(String sql, Object[] params, Class<T> clazz) throws SQLException {
         log(sql, params);
         QueryRunner runner = new QueryRunner(dataSource.getDataSource());
         return (T) runner.query(sql, new BeanHandler(clazz), params);
@@ -219,7 +217,7 @@ public class DBTool<T> {
      * @throws SQLException List<T>
      * @throws @since       1.0.0
      */
-    public List<T> queryList(String sql, Object[] params) throws SQLException {
+    public <T> List<T> queryList(String sql, Object[] params, Class<T> clazz) throws SQLException {
         log(sql, params);
         QueryRunner runner = new QueryRunner(dataSource.getDataSource());
         return (List<T>) runner.query(sql, new BeanListHandler(clazz), params);
