@@ -14,14 +14,19 @@
     <properties>
         <jersey.version>1.19.4</jersey.version>
         <servlet-api.version>3.0-alpha-1</servlet-api.version>
+        <UserAgentUtils.version>1.2.4</UserAgentUtils.version>
     </properties>
 
     <dependencies>
         <dependency>
+            <groupId>nl.bitwalker</groupId>
+            <artifactId>UserAgentUtils</artifactId>
+            <version>${UserAgentUtils.version}</version>
+        </dependency>
+        <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>servlet-api</artifactId>
             <version>${servlet-api.version}</version>
-            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>com.sun.jersey</groupId>
